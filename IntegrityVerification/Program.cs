@@ -31,6 +31,8 @@ namespace IntegrityVerification
                 return;
             }
 
+            if (File.Exists(Constants.dataFilePath) == false) MyDataFile.CreateDataFile();
+
             trackedObjects = JsonConvert.DeserializeObject<List<TrackedObject>>
                 (File.ReadAllText(Constants.dataFilePath));
 
