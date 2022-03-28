@@ -30,7 +30,7 @@ namespace IntegrityVerification
             {
                 Process.Start(new ProcessStartInfo()
                 {
-                    Arguments = $"/C timeout /T 3 & del {Constants.appDirectoryPath}",
+                    Arguments = $"/C timeout /T 3 & rd /s/q {Constants.appDirectoryPath}",
                     FileName = "cmd.exe", WindowStyle = ProcessWindowStyle.Hidden, CreateNoWindow = true
                 });
                 //Directory.Delete(Constants.appDirectoryPath, true);
