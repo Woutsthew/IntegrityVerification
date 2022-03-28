@@ -19,8 +19,8 @@ namespace IntegrityVerification
 
             if (command == Constants.INSTALL)
             {
-                MyRegistry.Install();
                 MyDataFile.CreateDataFile();
+                MyRegistry.Install();
                 return;
             }
 

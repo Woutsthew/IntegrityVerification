@@ -20,10 +20,10 @@ namespace IntegrityVerification
 
                 RegistryKey app = shell.CreateSubKey(Process.GetCurrentProcess().ProcessName, true);
                 app.SetValue(Constants.r_MUIVerb, Constants.r_MUIVerbValue);
-                app.SetValue(Constants.r_ICON, Process.GetCurrentProcess().MainModule.FileName);
+                app.SetValue(Constants.r_ICON, Constants.appFilePath);
 
                 RegistryKey command = app.CreateSubKey(Constants.r_COMMAND);
-                command.SetValue("", $"\"{Process.GetCurrentProcess().MainModule.FileName}\" %1");
+                command.SetValue("", $"\"{Constants.appFilePath}\" %1");
 
                 command.Close();
                 app.Close();
