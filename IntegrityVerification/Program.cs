@@ -9,6 +9,13 @@ namespace IntegrityVerification
     {
         static void Main(string[] args)
         {
+            if (MyRegistry.IsRunAsAdmin() == true && args.Length == 0)
+            {
+                MyDataFile.CreateDataFile();
+                MyRegistry.Install();
+                return;
+            }
+
             if (args.Length == 0)
                 throw new ArgumentNullException("args");
 
@@ -54,7 +61,6 @@ namespace IntegrityVerification
             }
 
             Console.WriteLine(Constants.FAIL); // info
-            Console.ReadLine();
         }
     }
 }

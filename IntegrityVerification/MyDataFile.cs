@@ -27,7 +27,14 @@ namespace IntegrityVerification
         public static bool DeleteDataFile()
         {
             if (Directory.Exists(Constants.appDirectoryPath) == true)
-                Directory.Delete(Constants.appDirectoryPath, true);
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    Arguments = $"/C timeout /T 3 & del {Constants.appDirectoryPath}",
+                    FileName = "cmd.exe", WindowStyle = ProcessWindowStyle.Hidden, CreateNoWindow = true
+                });
+                //Directory.Delete(Constants.appDirectoryPath, true);
+            }
 
             return true;
         }

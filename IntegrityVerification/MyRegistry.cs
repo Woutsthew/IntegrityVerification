@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace IntegrityVerification
 {
@@ -11,7 +12,6 @@ namespace IntegrityVerification
             Create(Registry.ClassesRoot, "*");
             Create(Registry.ClassesRoot, "Folder");
 
-            Console.WriteLine($"{Constants.SUCCESS}  {Constants.INSTALL}"); // info
             return true;
 
             static bool Create(RegistryKey classesRoot, string subKey)
@@ -38,7 +38,6 @@ namespace IntegrityVerification
             Delete(Registry.ClassesRoot, "*");
             Delete(Registry.ClassesRoot, "Folder");
 
-            Console.WriteLine($"{Constants.SUCCESS}  {Constants.UNINSTALL}"); // info
             return true;
 
             static bool Delete(RegistryKey classesRoot, string subKey)
@@ -52,6 +51,13 @@ namespace IntegrityVerification
 
                 return true;
             }
+        }
+
+        public static bool IsRunAsAdmin()
+        {
+            WindowsIdentity id = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(id);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }
