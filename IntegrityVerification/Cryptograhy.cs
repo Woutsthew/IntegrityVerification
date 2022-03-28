@@ -3,9 +3,9 @@ using System.Text;
 
 namespace IntegrityVerification
 {
-    public static class Cryptograhy
+    static class Cryptograhy
     {
-        static public string Sha256(byte[] rString)
+        public static string Sha256(byte[] rString)
         {
             var managed = new SHA256Managed();
             var hash = new StringBuilder();
@@ -16,6 +16,11 @@ namespace IntegrityVerification
                 hash.Append(theByte.ToString("x2"));
 
             return hash.ToString();
+        }
+
+        public static string Sha256(string rString)
+        {
+            return Sha256(Encoding.UTF8.GetBytes(rString));
         }
     }
 }

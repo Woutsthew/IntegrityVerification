@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace IntegrityVerification
 {
     class Program
     {
-        static List<TrackedObject> trackedObjects;
-
         static void Main(string[] args)
         {
             if (args.Length == 0)
@@ -31,48 +31,33 @@ namespace IntegrityVerification
                 return;
             }
 
+
             if (File.Exists(Constants.dataFilePath) == false) MyDataFile.CreateDataFile();
 
-            trackedObjects = JsonConvert.DeserializeObject<List<TrackedObject>>
+            List<TrackedObject>  trackedObjects = JsonConvert.DeserializeObject<List<TrackedObject>>
                 (File.ReadAllText(Constants.dataFilePath));
+
 
             if (File.Exists(command) == true)
             {
-                WorkWithFile(command);
+                Processing.WorkWithFile(trackedObjects, command);
                 return;
             }
 
-            //if (Directory.Exists(command) == true) { return; }
+            if (Directory.Exists(command) == true)
+            {
+                // возможно 3 варианта вычислить hash директории
+                // 1. объединяет хэши все файлов и вычисляет общий хэш
+                // 2. вычисляет хэш всех файлов и добавляет в хэши в директорию (файлы прикрепленны к директории)
+                // 3. вычисляет хэши всех файлов и сохраняет их как отдельные файлы
+                // был выбран первый (1) вариант поскольку программа не преследует цель определить где именно было изменение
+
+                Processing.WorkWithFolder(trackedObjects, command);
+                return;
+            }
 
             Console.WriteLine(Constants.FAIL); // info
             Console.ReadLine();
-        }
-
-        static bool WorkWithFile(string pathObj)
-        {
-            var obj = trackedObjects.Find(x => x.path == pathObj);
-            byte[] bytes = File.ReadAllBytes(pathObj);
-            string hash = Cryptograhy.Sha256(bytes);
-
-            if (obj == null)
-            {
-                trackedObjects.Add(new TrackedObject(pathObj, hash)); // добавление нового объекта
-            }
-            else
-            {
-                if (obj.hashes.Last() != hash)
-                {
-                    obj.hashes.Add(hash); // хэши отличаються
-                }
-                else
-                {
-                    // хэш остался таким же
-                }
-            }
-
-            File.WriteAllText(Constants.dataFilePath, JsonConvert.SerializeObject(trackedObjects, Formatting.Indented));
-
-            return true;
         }
     }
 }

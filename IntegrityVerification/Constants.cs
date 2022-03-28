@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IntegrityVerification
 {
-    static public class Constants
+    static class Constants
     {
         public const string INSTALL = "install";
         public const string UNINSTALL = "uninstall";

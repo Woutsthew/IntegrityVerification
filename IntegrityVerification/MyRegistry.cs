@@ -4,12 +4,12 @@ using System.Diagnostics;
 
 namespace IntegrityVerification
 {
-    static public class MyRegistry
+    static class MyRegistry
     {
         public static bool Install()
         {
             Create(Registry.ClassesRoot, "*");
-            //Create(Registry.ClassesRoot, "Folder");
+            Create(Registry.ClassesRoot, "Folder");
 
             Console.WriteLine($"{Constants.SUCCESS}  {Constants.INSTALL}"); // info
             return true;
@@ -36,7 +36,7 @@ namespace IntegrityVerification
         public static bool Uninstall()
         {
             Delete(Registry.ClassesRoot, "*");
-            //Delete(Registry.ClassesRoot, "Folder");
+            Delete(Registry.ClassesRoot, "Folder");
 
             Console.WriteLine($"{Constants.SUCCESS}  {Constants.UNINSTALL}"); // info
             return true;
