@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace IntegrityVerification
+namespace IVUninstall
 {
     static class Constants
     {

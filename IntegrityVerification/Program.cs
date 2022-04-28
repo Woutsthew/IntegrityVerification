@@ -9,32 +9,7 @@ namespace IntegrityVerification
     {
         static void Main(string[] args)
         {
-            if (MyRegistry.IsRunAsAdmin() == true && args.Length == 0)
-            {
-                MyDataFile.CreateDataFile();
-                MyRegistry.Install();
-                return;
-            }
-
-            if (args.Length == 0)
-                throw new ArgumentNullException("args");
-
             string command = String.Join(' ', args);
-
-            if (command == Constants.INSTALL)
-            {
-                MyDataFile.CreateDataFile();
-                MyRegistry.Install();
-                return;
-            }
-
-            if (command == Constants.UNINSTALL)
-            {
-                MyRegistry.Uninstall();
-                MyDataFile.DeleteDataFile();
-                return;
-            }
-
 
             if (File.Exists(Constants.dataFilePath) == false) MyDataFile.CreateDataFile();
 
@@ -59,8 +34,6 @@ namespace IntegrityVerification
                 Processing.WorkWithFolder(trackedObjects, command);
                 return;
             }
-
-            Console.WriteLine(Constants.FAIL); // info
         }
     }
 }

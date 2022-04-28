@@ -1,7 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Diagnostics;
-using System.Security.Principal;
 
 namespace IntegrityVerification
 {
@@ -31,33 +29,6 @@ namespace IntegrityVerification
 
                 return true;
             }
-        }
-
-        public static bool Uninstall()
-        {
-            Delete(Registry.ClassesRoot, "*");
-            Delete(Registry.ClassesRoot, "Folder");
-
-            return true;
-
-            static bool Delete(RegistryKey classesRoot, string subKey)
-            {
-                RegistryKey shell = classesRoot.OpenSubKey(subKey).OpenSubKey(Constants.r_SHELL, true);
-
-                if (shell.OpenSubKey(Process.GetCurrentProcess().ProcessName) != null)
-                    shell.DeleteSubKeyTree(Process.GetCurrentProcess().ProcessName);
-
-                shell.Close();
-
-                return true;
-            }
-        }
-
-        public static bool IsRunAsAdmin()
-        {
-            WindowsIdentity id = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(id);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }
