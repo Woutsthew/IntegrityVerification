@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrityVerification", "In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IVUninstall", "IVUninstall\IVUninstall.csproj", "{0C120C86-C098-4FF5-8498-922B6F87E77B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IVInstall", "IVInstall\IVInstall.csproj", "{25948403-DCCA-4B23-9D1D-6B1F5B1635D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0C120C86-C098-4FF5-8498-922B6F87E77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C120C86-C098-4FF5-8498-922B6F87E77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C120C86-C098-4FF5-8498-922B6F87E77B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25948403-DCCA-4B23-9D1D-6B1F5B1635D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25948403-DCCA-4B23-9D1D-6B1F5B1635D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25948403-DCCA-4B23-9D1D-6B1F5B1635D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25948403-DCCA-4B23-9D1D-6B1F5B1635D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

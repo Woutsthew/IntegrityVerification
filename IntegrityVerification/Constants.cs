@@ -6,16 +6,6 @@ namespace IntegrityVerification
 {
     static class Constants
     {
-        public const string r_SHELL = "shell";
-
-        public const string r_MUIVerb = "MUIVerb";
-        public const string r_MUIVerbValue = "Check hash";
-
-        public const string r_ICON = "icon";
-
-        public const string r_COMMAND = "command";
-
-
         private static string appFileName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
         private const string dataFileName = "TrackedObjects.txt";
 

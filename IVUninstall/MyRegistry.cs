@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using System.Diagnostics;
 using System.Runtime.Versioning;
 
 namespace IVUninstall
@@ -18,8 +17,8 @@ namespace IVUninstall
             {
                 RegistryKey shell = classesRoot.OpenSubKey(subKey).OpenSubKey(Constants.r_SHELL, true);
 
-                if (shell.OpenSubKey(Process.GetCurrentProcess().ProcessName) != null)
-                    shell.DeleteSubKeyTree(Process.GetCurrentProcess().ProcessName);
+                if (shell.OpenSubKey(Constants.appName) != null)
+                    shell.DeleteSubKeyTree(Constants.appName);
 
                 shell.Close();
 

@@ -11,10 +11,13 @@ namespace IntegrityVerification
         {
             string command = String.Join(' ', args);
 
-            if (File.Exists(Constants.dataFilePath) == false) MyDataFile.CreateDataFile();
+            if (File.Exists(Constants.dataFilePath) == false)
+                File.Create(Constants.dataFilePath).Close();
 
-            List<TrackedObject>  trackedObjects = JsonConvert.DeserializeObject<List<TrackedObject>>
-                (File.ReadAllText(Constants.dataFilePath));
+            if (String.IsNullOrEmpty(File.ReadAllText(Constants.dataFilePath)))
+                File.WriteAllText(Constants.dataFilePath, JsonConvert.SerializeObject(new List<TrackedObject>(), Formatting.Indented));
+
+            List<TrackedObject> trackedObjects = JsonConvert.DeserializeObject<List<TrackedObject>>(File.ReadAllText(Constants.dataFilePath));
 
 
             if (File.Exists(command) == true)

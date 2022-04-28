@@ -16,7 +16,6 @@ namespace IVUninstall
                     WindowStyle = ProcessWindowStyle.Hidden,
                     CreateNoWindow = true
                 });
-                //Directory.Delete(Constants.appDirectoryPath, true);
             }
 
             return true;

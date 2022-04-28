@@ -11,7 +11,7 @@ namespace IntegrityVerification
         public static bool WorkWithFile(List<TrackedObject> trackedObjects, string pathObj)
         {
             var obj = trackedObjects.Find(x => x.path == pathObj);
-            string hash = Cryptograhy.Sha256(File.ReadAllBytes(pathObj));
+            string hash = FamilySHA.SHA256(File.ReadAllBytes(pathObj));
 
             ProcessDistribution(trackedObjects, obj, pathObj, hash);
 
@@ -24,9 +24,9 @@ namespace IntegrityVerification
             StringBuilder sumHash = new StringBuilder();
 
             foreach (string filepath in Directory.EnumerateFiles(pathObj, "*.*", SearchOption.AllDirectories))
-                sumHash.Append(Cryptograhy.Sha256(File.ReadAllBytes(filepath)));
+                sumHash.Append(FamilySHA.SHA256(File.ReadAllBytes(filepath)));
 
-            string hash = Cryptograhy.Sha256(sumHash.ToString());
+            string hash = FamilySHA.SHA256(sumHash.ToString());
 
             ProcessDistribution(trackedObjects, obj, pathObj, hash);
 
