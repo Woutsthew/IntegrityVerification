@@ -22,17 +22,12 @@ namespace IntegrityVerification
         public static bool WorkWithFolder(List<TrackedObject> trackedObjects, string pathObj)
         {
             var obj = trackedObjects.Find(x => x.path == pathObj);
-            StringBuilder hash = new StringBuilder();
+            StringBuilder hashs = new StringBuilder();
 
-            var files = Directory.EnumerateFiles(pathObj, "*.*", SearchOption.AllDirectories);
+            foreach (string filepath in Directory.EnumerateFiles(pathObj, "*.*", SearchOption.AllDirectories))
+                hashs.Append(FamilySHA.SHA256(File.ReadAllBytes(filepath)));
 
-            Parallel.ForEach(files.ToChunks(1), filesChunk =>
-            {
-                foreach (string file in filesChunk)
-                    hash.Append(FamilySHA.SHA256(File.ReadAllBytes(file)));
-            });
-
-            string sumHash = FamilySHA.SHA256(hash.ToString());
+            string sumHash = FamilySHA.SHA256(hashs.ToString());
 
             ProcessDistribution(trackedObjects, obj, pathObj, sumHash);
 
