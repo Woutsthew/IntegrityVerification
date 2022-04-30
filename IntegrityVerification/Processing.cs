@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IntegrityVerification
 {
@@ -21,14 +22,19 @@ namespace IntegrityVerification
         public static bool WorkWithFolder(List<TrackedObject> trackedObjects, string pathObj)
         {
             var obj = trackedObjects.Find(x => x.path == pathObj);
-            StringBuilder sumHash = new StringBuilder();
+            StringBuilder hash = new StringBuilder();
 
-            foreach (string filepath in Directory.EnumerateFiles(pathObj, "*.*", SearchOption.AllDirectories))
-                sumHash.Append(FamilySHA.SHA256(File.ReadAllBytes(filepath)));
+            var files = Directory.EnumerateFiles(pathObj, "*.*", SearchOption.AllDirectories);
 
-            string hash = FamilySHA.SHA256(sumHash.ToString());
+            Parallel.ForEach(files.ToChunks(1), filesChunk =>
+            {
+                foreach (string file in filesChunk)
+                    hash.Append(FamilySHA.SHA256(File.ReadAllBytes(file)));
+            });
 
-            ProcessDistribution(trackedObjects, obj, pathObj, hash);
+            string sumHash = FamilySHA.SHA256(hash.ToString());
+
+            ProcessDistribution(trackedObjects, obj, pathObj, sumHash);
 
             return true;
         }
