@@ -11,10 +11,9 @@ namespace IVUninstall
             {
                 Process.Start(new ProcessStartInfo()
                 {
-                    Arguments = $"/C timeout /T 3 & rd /s/q {Constants.appDirectoryPath}",
                     FileName = "cmd.exe",
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    Arguments = $"/c timeout /t 3 & rd /s /q {Constants.appDirectoryPath}"
                 });
             }
 
